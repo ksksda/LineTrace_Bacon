@@ -4,15 +4,20 @@
 ## 構成
 main.py => これで完成
 linetrace.py => 松本担当。走行関係。
+
 capture.py => 須田担当。ボール関係。角度指定以外完成
+
 objects.py => 須田担当？(竜征含む)。arduinoとの通信を隠蔽した物理層。
 
+
 モータ制御は「objects.mc = objects.motor_control(mL, mR)」
+
 ボールのゲート制御は「objects.gate_control(clr)」
 
 色のインデックスはb=0, y=1, r=2
 
 他センサー系は必要そうなのは書いてますので適当に推測して取得してください。
+
 必要に応じて追加してください
 
 ```
