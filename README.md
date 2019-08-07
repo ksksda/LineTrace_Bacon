@@ -19,7 +19,12 @@ objects.py => 須田担当？(竜征含む)。arduinoとの通信を隠蔽した
 他センサー系は必要そうなのは書いてますので適当に推測して取得してください。
 
 必要に応じて追加してください
-
+'''
+sudo modprobe ftdi-sio
+sudo chmod 777 /sys/bus/usb-serial/drivers/ftdi_sio/new_id
+sudo echo "165c 0009" > /sys/bus/usb-serial/drivers/ftdi_sio/new_id
+sudo chmod a+wrx /dev/ttyUSB0
+'''
 ```
 def func1():
 	# 初期化部分をここに書く
