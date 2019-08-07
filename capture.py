@@ -1,88 +1,84 @@
 import time
 import linetrace
-import objects
 
 balls = [0, 0, 0]
 
-def seek():
-	border = 350
+def seek(rc):
+	border = 350 
 	flg1 = 0
 	flg2 = 0
 	yield None
 	
 	while True:
-		if objects.measure_dist() < border:
+		if rc.dist < border:
 			yield approach
-		sensor = objects.sense_line()
-		if not flg2 and (sensor[0] or sensor[3]):
+		sensor = rc.sensor
+		if not flg2 and (sensor[0] or sensor[2]):
 			flg1 ^= 1
-			objects.mc = objects.motor_control(1., 0.) if flg1 else objects.motor_control(0., 1.)
-		if flg2 and not (sensor[0] or sensor[3]):
+			rc.motor = [1., 0.] if flg1 else [0., 1.]
+		if flg2 and not (sensor[0] or sensor[2]):
 			flg2 ^= 1
 		yield None
 
-def approach():
+def approach(rc):
 	border = 200
-	objects.mc = objects.motor_control(0.5, 0.5)
+	rc.motor = [0.5, 0.5]
 	yield None
 	
 	while True:
-		if objects.measure_dist() < border:
-			yield catch
+		if rc.dist < border:
+			yield capture
 		yield None
 
-def capture():
-	###
-	key_angles = [[],[],[]]
-	capture_angles = [[[],[]],[[],[]],[[],[]]]
-	objects.mc = objects.motor_control(0., 0.)
+def capture(rc):
+	key_angles = [[0,115,80,-105,0],[0,120,30,-60,0],[0,120,30,-60,60]]
+	capture_angles = [[[50,35,-70,-90,60],[50,35,-70,-90,0]],[[0,35,-70,-90,60],[0,35,-70,-90,0]],[[-50,35,-70,-90,60],[-50,35,-70,-90,0]]]
+	rc.motor = [0., 0.]
 	yield None
 	
-	clr = objects.identify_color()
+	clr = rc.identify_color()
 	balls[clr] += 1
-	key_angles.expend(capture_angles(clr))
+	key_angles.extend(capture_angles[clr])
 	yield None
 	
 	for angles in key_angles:
-		objects.servo_control(angles)
+		rc.servo = angles
 		t = time.time()
 		while time.time() - t < 1.:
 			yield None
 	
 	yield turn if sum(balls)==15 else back
 
-def throw():
-	###
-	key_angles = [[],[],[]]
-	objects.mc = objects.motor_control(0., 0.)
+def throw(rc):
+	key_angles = [[90,0,0,0,60],[90,30,90,60,60],[90,30,90,0,0],[0,0,0,0,0]]
+	rc.motor = [0., 0.]
 	yield None
 	
 	for angles in key_angles:
-		objects.servo_control(angles)
+		rc.servo = angles
 		t = time.time()
 		while time.time() - t < 1.:
 			yield None
 	yield linetrace.linetrace
 
-def back():
-	objects.mc = objects.motor_control(-0.5, -0.5)
+def back(rc):
+	rc.motor = [-0.5, -0.5]
 	yield None
 	
 	while True:
-		if any(objects.sense_line()):
+		if any(rc.sensor):
 			yield seek
 		yield None
 	
-def turn():
-	objects.mc = objects.motor_control(0.5, -0.5)
+def turn(rc):
+	rc.motor = [0.5, -0.5]
 	yield None
 	
 	while True:
-		if not any(objects.sense_line()):
+		if not any(rc.sensor):
 			break
 		yield None
 	while True:
-		if any(objects.sense_line()):
+		if any(rc.sensor):
 			yield linetrace.shoot
 		yield None
-
