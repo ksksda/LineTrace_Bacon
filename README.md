@@ -38,3 +38,10 @@ def func1():
 		# ループ部分をここに書く
 		yield None	# ←ステップごとに進んだ距離を関数内で使用する場合は 「dx = yield None」
 ```
+```
+sudo nmcli connection mod "profilename" \
+ ipv4.addresses "192.168.0.100/24" \
+ ipv4.gateway "192.168.0.1" \
+ ipv4.dns "192.168.0.1,8.8.8.8" \
+ ipv4.method "manual"
+```
