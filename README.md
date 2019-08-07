@@ -40,8 +40,8 @@ def func1():
 ```
 ```
 sudo nmcli connection mod "profilename" \
- ipv4.addresses "192.168.0.100/24" \
- ipv4.gateway "192.168.0.1" \
+ ipv4.addresses "192.168.4.111/24" \
+ ipv4.gateway "192.168.4.1" \
  ipv4.dns "192.168.0.1,8.8.8.8" \
  ipv4.method "manual"
 ```
