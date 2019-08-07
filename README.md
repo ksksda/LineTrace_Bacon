@@ -38,7 +38,9 @@ def func1():
 		# ループ部分をここに書く
 		yield None	# ←ステップごとに進んだ距離を関数内で使用する場合は 「dx = yield None」
 ```
+cuiからwifi設定する
 ```
+#例
 sudo nmcli connection mod "profilename" \
  ipv4.addresses "192.168.4.111/24" \
  ipv4.gateway "192.168.4.1" \
