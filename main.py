@@ -1,11 +1,13 @@
 import linetrace
 import capture
 import objects
+import time
 
 rc = objects.robot_control()
 loop_func = linetrace.straight
 
 if __name__ == '__main__':
+        time.sleep(3)
 	while True:
 		if loop_func:
 			lf = loop_func(rc)
