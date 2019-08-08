@@ -6,15 +6,19 @@ if __name__ == '__main__':
 
 
     cid=int(input('cid?'))
-    servo.IDchange(int(cid))
-    servo.IDchange(cid)
-    time.sleep(1)
-    servo.RomSave()
-    time.sleep(1)
+    #servo.IDchange(int(cid))
+    #time.sleep(1)
+    #servo.RomSave()
+    #time.sleep(1)
     servo.torque(cid,1)
-    servo.move(cid,1000,200)
-    time.sleep(2)
-    servo.move(cid,-1000,200)
-    time.sleep(2)
-    servo.move(cid,0,200)
-    time.sleep(2)
+    print("torque on!")
+    while True:
+        ang=input()
+        if ang == 'q':
+            break
+        servo.move(cid,int(ang),100)
+        time.sleep(1)
+    #servo.move(cid,-1000,200)
+    #time.sleep(2)
+    #servo.move(cid,0,200)
+    #time.sleep(2)

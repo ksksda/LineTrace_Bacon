@@ -11,6 +11,7 @@ class robot_control(object):
 		self.gate = [0, 0, 0]
 		self.sensor = [0, 0, 0]
 		self.dist = 0.
+                self.c = 0
 		for i in range(8):
 			self.servo.torque(i + 1, 1)
 		
@@ -20,27 +21,23 @@ class robot_control(object):
 		snd = ''
 		for f in self.motor:
 			snd += str(f) + ' '
-		for f in self.servo:
-			snd += str(f) + ' '
-		for f in self.gate:
-			snd += str(f) + ' '
-			self.gpio_seri.write(snd + 'e')
+		self.gpio_seri.write(snd + 'e')
 			
-			for i in range(5):
-				self.servo.move(i + 1, 10*self.servo[i], 1)
-			for i in range(3):
-				self.servo.move(i + 1, 1200*self.servo[i], 1)
-			
-			ret = ''
-			while not ret:
-				time.sleep(0.005)
-				ret = self.gpio_seri.readline()
-			r = ret.split(' ')
-			for i in range(3):
-				self.sensor[i] = int(r[i])
-			self.dist = float(r[3])
+		for i in range(5):
+			self.servo.move(i + 1, 10*self.servo[i], 1)
+		for i in range(3):
+			self.servo.move(i + 1, -1200*self.gate[i], 1)
+		
+		ret = ''
+		while not ret:
+			time.sleep(0.005)
+			ret = self.gpio_seri.readline()
+		r = ret.split(' ')
+		for i in range(3):
+			self.sensor[i] = int(r[i])
+		self.dist = float(r[3])
 
-		def identify_color(self):
-			clr = 0
-			return clr
+	    def identify_color(self):
+                self.c += 1
+		return (self.c-1) // 5
 
