@@ -27,9 +27,9 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
             elif line_crossed == 4:
                 yield capture.seek
             elif line_crossed == 6:
-                yield capture.shoot
+                yield shoot
             # elif line_crossed >= 7:
-            # yield capture.shoot2
+            # yield shoot2
         
         rc.motor = [0.5,0.5]
         if not off_flag:
