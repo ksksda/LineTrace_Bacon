@@ -75,15 +75,11 @@ def turn(rc):
     yield None
     
     while True:
-        if rc.sensor[0]:
+        if rc.sensor[0] and not rc.sensor[1]:
             break
         yield None
     while True:
-        if not any(rc.sensor):
-            break
-        yield None
-    while True:
-        if rc.sensor[2]:
+        if rc.sensor[1]:
             yield linetrace.linetrace
         yield None
 

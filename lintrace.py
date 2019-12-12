@@ -57,8 +57,13 @@ def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちて�
     rc.motor = [0.5,-0.5]
     yield None
     while True:
-        if not any(rc.sensor):
+        if not all(rc.sensor):
             off_flag = False
+        if rc.sensor[0] and not rc.sensor[1]:
+            break
+        yield None
+    while True:
+        if rc.sensor[1]:
             break
         yield None
     rc.motor = [0,0]
