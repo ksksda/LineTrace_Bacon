@@ -1,49 +1,68 @@
-const int MotorA = 5;
-const int MotorB = 7;
-const int MotorC = 9;
-const int MotorD = 11;
-const int sensorL = 2;
-const int sensorC = 3;
-const int sensorR = 4;
-const int PSD = 0;
-float m[2];
+const int motorL_pwm = 3;
+const int motorL_fb = 4;
+const int motorL_brake = 2;
+const int motorR_pwm = 5;
+const int motorR_fb = 7;
+const int motorR_brake = 8;
+const int sensorL = 0;
+const int sensorCL = 1;
+const int sensorCR = 2;
+const int sensorR = 3;
+const int psdL = 4;
+const int psdR = 5;
+float m[2]={1.0,1.0};
 char c = -1;
 String s = "";
 
 void setup() {
-  pinMode(MotorA, OUTPUT);
-  pinMode(MotorB, OUTPUT);
-  pinMode(MotorC, OUTPUT);
-  pinMode(MotorD, OUTPUT);
+  pinMode(motorL_pwm, OUTPUT);
+  pinMode(motorL_fb, OUTPUT);
+  pinMode(motorL_brake, OUTPUT);
+  pinMode(motorR_pwm, OUTPUT);
+  pinMode(motorR_fb, OUTPUT);
+  pinMode(motorR_brake, OUTPUT);
   Serial.begin(9600);
 }
 
 void loop() {
-  if(Serial.available() > 0){
+  if(true){
+  //if(Serial.available() > 0){
+    
     c = -1;
+    s = "";
     while(c==-1){
       c = Serial.read();
       delay(5); 
     }
     while(c!='e'){
-      s.concat(String(c));
+      if(c!=-1)s.concat(String(c));
       c = Serial.read();
     }
     
-    for(int i=0;i<2;i++)
+    for(int i=0;i<2;i++){
       m[i] = split_next().toFloat();
+    }
     
-    analogWrite(m[0] > 0 ? MotorA : MotorB, int(m[0]*100));
-    analogWrite(m[1] > 0 ? MotorC : MotorD, int(m[1]*100));
+    analogWrite(motorL_pwm, int(m[0]*100));
+    digitalWrite(motorL_fb, int(m[0]>=0));
+    digitalWrite(motorL_brake, int(m[0]==0));
+    analogWrite(motorR_pwm, int(m[1]*100));
+    digitalWrite(motorR_fb, int(m[1]>=0));
+    digitalWrite(motorR_brake, int(m[1]==0));
     
     s = "";
-    s.concat(digitalRead(sensorL));
+    s.concat(analogRead(sensorL));
     s.concat(" ");
-    s.concat(digitalRead(sensorC));
+    s.concat(analogRead(sensorCL));
     s.concat(" ");
-    s.concat(digitalRead(sensorR));
+    s.concat(analogRead(sensorCR));
     s.concat(" ");
-    s.concat(analogRead(PSD));
+    s.concat(analogRead(sensorR));
+    s.concat(" ");
+    s.concat(analogRead(psdL));
+    s.concat(" ");
+    s.concat(analogRead(psdR));
+    s.concat("\n");
     Serial.print(s);
   }
 }
