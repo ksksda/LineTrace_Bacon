@@ -24,10 +24,10 @@ def seek(rc):
     while True:
         if rc.dist < border:
             yield approach
-        if not flg2 and (rc.sensor[0] or rc.sensor[2]):
+        if not flg2 and (rc.sensor[0] or rc.sensor[3]):
             flg1 ^= 1
             rc.motor = [1., 0.] if flg1 else [0., 1.]
-        if flg2 and not (rc.sensor[0] or rc.sensor[2]):
+        if flg2 and not (rc.sensor[0] or rc.sensor[3]):
             flg2 ^= 1
         yield None
 
@@ -83,7 +83,7 @@ def turn(rc):
             break
         yield None
     while True:
-        if rc.sensor[1]:
+        if rc.sensor[2]:
             yield linetrace.linetrace
         yield None
 

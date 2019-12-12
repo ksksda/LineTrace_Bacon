@@ -31,15 +31,16 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
             # elif line_crossed >= 7:
             # yield capture.shoot2
         
-        if off_flag:
-            rc.motor = [0.5,0.5]
-        else:
+        rc.motor = [0.5,0.5]
+        if not off_flag:
+            if rc.sensor[3]:
+                rc.motor[0] = 0.75
+            elif not rc.sensor[2]:
+                rc.motor[0] = 0.25
             if rc.sensor[0]:
-                rc.motor = [0.25,0.75]
-            elif rc.sensor[2]
-                rc.motor = [0.75,0.25]
-            else:
-                rc.motor = [0.5,0.5]
+                rc.motor[1] = 0.75
+            elif not rc.sensor[1]:
+                rc.motor[1] = 0.25
     yield None
 
 def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドにおいてその場転回した後に実行される。ボールをゴールに入れる
