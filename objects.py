@@ -43,7 +43,7 @@ class robot_control(object):
             snd = ''
             for f in self.motor:
                 snd += str(f) + ' '
-            self._arduino.write(bytes(snd + 'e','UTF-8'))
+            self._arduino.write((snd + 'e').encode('UTF-8'))
             
             ret = self._arduino.readline().decode('UTF-8')
             r = ret.split(' ')

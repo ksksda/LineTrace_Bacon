@@ -13,8 +13,8 @@ class RSC_U485:
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
             timeout=1)
-        except:
-            raise FileNotFoundError("servo not found")
+        except Exception as e:
+            raise e
 
 #        print self.ser.portstr
     def b3m_test(self):
