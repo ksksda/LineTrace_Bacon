@@ -5,13 +5,16 @@ import serial,struct
 
 class RSC_U485:
     def __init__(self,port,baudrate):
-        self.ser = serial.Serial(
-        port=port,
-        baudrate=baudrate,
-        bytesize=serial.EIGHTBITS,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        timeout=1)
+        try:
+            self.ser = serial.Serial(
+            port=port,
+            baudrate=baudrate,
+            bytesize=serial.EIGHTBITS,
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            timeout=1)
+        except:
+            raise FileNotFoundError("servo not found")
 
 #        print self.ser.portstr
     def b3m_test(self):
