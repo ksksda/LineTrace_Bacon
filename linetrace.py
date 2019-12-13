@@ -14,6 +14,8 @@ def straight(rc):   # 最初にラインを見つけるまで走る
         yield None
 
 def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.throw、4回でcapture.seek
+    global off_flag
+    global line_crossed
     yield None
     while True:
         if all(rc.sensor):
@@ -44,6 +46,8 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
     yield None
 
 def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドにおいてその場転回した後に実行される。ボールをゴールに入れる
+    global off_flag
+    global line_crossed
     rc.motor = [0.5,0.5]
     yield None
     while True:

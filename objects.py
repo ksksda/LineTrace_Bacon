@@ -43,10 +43,12 @@ class robot_control(object):
             snd = ''
             for f in self.motor:
                 snd += str(f) + ' '
-            self._arduino.write(snd + 'e')
+            self._arduino.write(bytes(snd + 'e','UTF-8'))
             
-            ret = self._arduino.readline()
+            ret = self._arduino.readline().decode('UTF-8')
             r = ret.split(' ')
+            if len(r)<6:
+                return
             for i in range(4):
                 self.sensor[i] = int(r[i])
             self.dist = 34541.0/(float(r[4])+float(r[5])) - 6.0348

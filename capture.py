@@ -42,6 +42,7 @@ def approach(rc):
         yield None
 
 def capture(rc):
+    global balls
     key_angles = [[0,-115,-80,105,0],[0,-120,-30,60,0],[0,-120,-30,60,-60]]
     capture_angles = [[[50,-35,70,90,-60],[50,-35,70,90,0]],[[0,-35,70,90,-60],[0,-35,70,90,0]],[[-50,-35,70,90,-60],[-50,-35,70,90,0]]]
     rc.motor = [0., 0.]
@@ -60,6 +61,7 @@ def capture(rc):
     yield back
 
 def back(rc):
+    global balls
     rc.motor = [-0.5, -0.5]
     yield None
     
