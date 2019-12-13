@@ -1,25 +1,26 @@
 const int motorL_pwm = 3;
-const int motorL_fb = 4;
+const int motorL_inv = 4;
 const int motorL_brake = 2;
 const int motorR_pwm = 5;
-const int motorR_fb = 7;
+const int motorR_inv = 7;
 const int motorR_brake = 8;
+const float gain[2] = {0.7,-1.0};
 const int sensorL = 0;
 const int sensorCL = 1;
 const int sensorCR = 2;
 const int sensorR = 3;
 const int psdL = 4;
 const int psdR = 5;
-float m[2]={1.0,1.0};
-char c = -1;
-String s = "";
+float m[2];
+char c;
+String s;
 
 void setup() {
   pinMode(motorL_pwm, OUTPUT);
-  pinMode(motorL_fb, OUTPUT);
+  pinMode(motorL_inv, OUTPUT);
   pinMode(motorL_brake, OUTPUT);
   pinMode(motorR_pwm, OUTPUT);
-  pinMode(motorR_fb, OUTPUT);
+  pinMode(motorR_inv, OUTPUT);
   pinMode(motorR_brake, OUTPUT);
   Serial.begin(9600);
 }
@@ -27,7 +28,6 @@ void setup() {
 void loop() {
   if(true){
   //if(Serial.available() > 0){
-    
     c = -1;
     s = "";
     while(c==-1){
@@ -40,14 +40,14 @@ void loop() {
     }
     
     for(int i=0;i<2;i++){
-      m[i] = split_next().toFloat();
+      m[i] = split_next().toFloat()*gain[i]*0.2;
     }
     
-    analogWrite(motorL_pwm, int(m[0]*100));
-    digitalWrite(motorL_fb, int(m[0]>=0));
+    analogWrite(motorL_pwm, int(abs(m[0])*100));
+    digitalWrite(motorL_inv, int(m[0]<0));
     digitalWrite(motorL_brake, int(m[0]==0));
-    analogWrite(motorR_pwm, int(m[1]*100));
-    digitalWrite(motorR_fb, int(m[1]>=0));
+    analogWrite(motorR_pwm, int(abs(m[1])*100));
+    digitalWrite(motorR_inv, int(m[1]<0));
     digitalWrite(motorR_brake, int(m[1]==0));
     
     s = "";
