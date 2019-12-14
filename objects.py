@@ -43,11 +43,11 @@ class robot_control(object):
             snd = ''
             for f in self.motor:
                 snd += str(f) + ' '
-            print("send: \"" + snd + "\"")
+            print("send: " + snd)
             self._arduino.write((snd + 'e').encode('UTF-8'))
             
             ret = self._arduino.readline().decode('UTF-8')
-            print("return: \"" + ret + "\"")
+            print("return: "+ ret)
             r = ret.split(' ')
             if len(r)<6:
                 return

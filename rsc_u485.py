@@ -14,7 +14,8 @@ class RSC_U485:
             stopbits=serial.STOPBITS_ONE,
             timeout=1)
         except Exception as e:
-            raise e
+            #raise e
+            raise FileNotFoundError
 
 #        print self.ser.portstr
     def b3m_test(self):
