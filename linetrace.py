@@ -40,15 +40,6 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
 def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドを抜けた後に実行される。ボールをゴールに入れる
     global off_flag
     global line_crossed
-    rc.motor = [0.5,0.5]
-    yield None
-    while True:
-        if all(rc.sensor):
-            if not off_flag:
-                line_crossed += 1
-                off_flag = True
-                break
-        yield None
     
     rc.motor = [0.5,-0.5]
     yield None
