@@ -45,7 +45,7 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
                 rc.motor[1] = 0.25
     yield None
 
-def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドにおいてその場転回した後に実行される。ボールをゴールに入れる
+def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドを抜けた後に実行される。ボールをゴールに入れる
     global off_flag
     global line_crossed
     rc.motor = [0.5,0.5]
@@ -90,7 +90,7 @@ def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちて�
     rc.gate = [0,0,0]
     yield None
     time.sleep(1.0)
-    yield linetrace
+    yield capture.turn
 
 def shoot2(rc):     # ボールを全部拾ったあと、ボールが落ちているフィールドにおいてその場転回した後に実行される。ボールをゴールに入れる
     #TODO 将来の課題
