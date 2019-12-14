@@ -36,7 +36,7 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
                 rc.motor[1] = 0.75
             elif not rc.sensor[1]:
                 rc.motor[1] = 0.25
-    yield None
+        yield None
 
 def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドを抜けた後に実行される。ボールをゴールに入れる
     print(sys._getframe().f_code.co_name)
