@@ -6,7 +6,6 @@ line_crossed = 0
 off_flag = False
 
 def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.throw、4回でcapture.seek
-    print(sys._getframe().f_code.co_name)
     global off_flag
     global line_crossed
     yield None
@@ -15,7 +14,7 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
             if not off_flag:
                 line_crossed += 1
                 off_flag = True
-        else:
+        elif off_flag:
             off_flag = False
             if line_crossed == 2:
                 yield capture.throw
@@ -39,7 +38,6 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
         yield None
 
 def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドを抜けた後に実行される。ボールをゴールに入れる
-    print(sys._getframe().f_code.co_name)
     global off_flag
     global line_crossed
     rc.motor = [0.5,0.5]
@@ -87,11 +85,9 @@ def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちて�
     yield capture.turn
 
 def shoot2(rc):     # ボールを全部拾ったあと、ボールが落ちているフィールドにおいてその場転回した後に実行される。ボールをゴールに入れる
-    print(sys._getframe().f_code.co_name)
     #TODO 将来の課題
     pass
 
 def goal(rc):       # 初期位置に戻って止まる
-    print(sys._getframe().f_code.co_name)
     pass
 
