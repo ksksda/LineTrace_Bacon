@@ -1,19 +1,12 @@
 import capture
 import time
+import sys
 
 line_crossed = 0
 off_flag = False
 
-def straight(rc):   # 最初にラインを見つけるまで走る
-    rc.motor = [0.5,0.5]
-    yield None
-    #sleep(1)
-    while True:
-        if any(rc.sensor):
-            yield linetrace
-        yield None
-
 def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.throw、4回でcapture.seek
+    print(sys._getframe().f_code.co_name)
     global off_flag
     global line_crossed
     yield None
@@ -46,6 +39,7 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
     yield None
 
 def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドを抜けた後に実行される。ボールをゴールに入れる
+    print(sys._getframe().f_code.co_name)
     global off_flag
     global line_crossed
     rc.motor = [0.5,0.5]
@@ -93,9 +87,11 @@ def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちて�
     yield capture.turn
 
 def shoot2(rc):     # ボールを全部拾ったあと、ボールが落ちているフィールドにおいてその場転回した後に実行される。ボールをゴールに入れる
+    print(sys._getframe().f_code.co_name)
     #TODO 将来の課題
     pass
 
 def goal(rc):       # 初期位置に戻って止まる
+    print(sys._getframe().f_code.co_name)
     pass
 

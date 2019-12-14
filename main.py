@@ -4,7 +4,7 @@ import objects
 import time
 
 rc = objects.robot_control()
-loop_func = linetrace.straight
+loop_func = linetrace.linetrace
 
 if __name__ == '__main__':
     time.sleep(3)
