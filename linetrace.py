@@ -32,10 +32,10 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
             off_flag = False
             # if line_crossed == 3:
             #     yield capture.throw
-            elif line_crossed == 5:
-                yield capture.seek
-            elif line_crossed == 6:
-                yield shoot
+            # elif line_crossed == 5:
+            #     yield capture.seek
+            # elif line_crossed == 6:
+            #     yield shoot
             # elif line_crossed >= 7:
             # yield shoot2
         
