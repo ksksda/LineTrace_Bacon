@@ -4,7 +4,8 @@ import objects
 import time
 
 rc = objects.robot_control()
-loop_func = linetrace.shoot_first
+# loop_func = linetrace.shoot_first
+loop_func = linetrace.linetrace
 func_name = ""
 
 if __name__ == '__main__':
