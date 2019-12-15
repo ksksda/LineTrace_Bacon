@@ -5,6 +5,20 @@ import sys
 line_crossed = 0
 off_flag = False
 
+
+def shoot_first(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドを抜けた後に実行される。ボールをゴールに入れる
+    
+    rc.motor = [0.5,0.5]
+    yield None
+    time.sleep(1.5)
+    rc.motor = [-0.5,-0.5]
+    yield None
+    time.sleep(1.5)
+    rc.motor = [0.25,-0.25]
+    yield None
+    time.sleep(0.5)
+    yield linetrace
+    
 def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.throw、4回でcapture.seek
     global off_flag
     global line_crossed
@@ -16,9 +30,9 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
                 off_flag = True
         elif off_flag:
             off_flag = False
-            if line_crossed == 2:
-                yield capture.throw
-            elif line_crossed == 4:
+            # if line_crossed == 3:
+            #     yield capture.throw
+            elif line_crossed == 5:
                 yield capture.seek
             elif line_crossed == 6:
                 yield shoot
@@ -28,13 +42,13 @@ def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.t
         rc.motor = [0.5,0.5]
         if not off_flag:
             if rc.sensor[3]:
-                rc.motor[0] = 0.75
+                rc.motor[0] = 0.85
             elif not rc.sensor[2]:
-                rc.motor[0] = 0.25
+                rc.motor[0] = 0.15
             if rc.sensor[0]:
-                rc.motor[1] = 0.75
+                rc.motor[1] = 0.85
             elif not rc.sensor[1]:
-                rc.motor[1] = 0.25
+                rc.motor[1] = 0.15
         yield None
 
 def shoot(rc):      # ボールを全部拾ったあと、ボールが落ちているフィールドを抜けた後に実行される。ボールをゴールに入れる
