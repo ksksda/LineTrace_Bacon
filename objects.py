@@ -20,7 +20,7 @@ class robot_control(object):
                 self._rs485 = None
         
         self.motor = [0., 0.]
-        self.servo = [0, 0, 0, 0, 0]
+        self.servo = [9,-6,9,15, -90]
         self.gate = [0, 0, 0]
         self.sensor = [0, 0, 0, 0]
         self.dist = 0.
@@ -35,9 +35,9 @@ class robot_control(object):
         
         if self._rs485:
             for i in range(5):
-                self._rs485.move(i + 1, 10*self.servo[i], 1)
+                self._rs485.move(i + 1, 10*self.servo[i], 50)
             for i in range(3):
-                self._rs485.move(i + 1, -1200*self.gate[i], 1)
+                self._rs485.move(i + 6, -1000*self.gate[i], 50)
         
         if self._arduino:
             snd = ''
@@ -52,7 +52,7 @@ class robot_control(object):
             if len(r)<6:
                 return
             for i in range(4):
-                self.sensor[i] = int(r[i])
+                self.sensor[i] = int(r[i]) < 150
             self.dist = 34541.0/(float(r[4])+float(r[5])) - 6.0348
 
     def identify_color(self):
