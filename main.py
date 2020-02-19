@@ -1,11 +1,13 @@
 import linetrace
+import DQN_ksksda
 import capture
 import objects
 import time
 
 rc = objects.robot_control()
-# loop_func = linetrace.shoot_first
-loop_func = linetrace.linetrace
+loop_func = linetrace.shoot_first
+# loop_func = linetrace.linetrace
+# loop_func = DQN_ksksda.linetrace_DQN_ksksda
 func_name = ""
 
 if __name__ == '__main__':

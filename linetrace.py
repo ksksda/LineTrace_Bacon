@@ -1,6 +1,7 @@
 import capture
 import time
 import sys
+import DQN_ksksda
 
 line_crossed = 0
 off_flag = False
@@ -17,6 +18,7 @@ def shoot_first(rc):      # ボールを全部拾ったあと、ボールが落�
     rc.motor = [0.25,-0.25]
     yield None
     time.sleep(0.5)
+    #yield DQN_ksksda.linetrace_DQN_ksksda
     yield linetrace
     
 def linetrace(rc):  # ライントレース、ラインクロス1回でcapture.throw、4回でcapture.seek
